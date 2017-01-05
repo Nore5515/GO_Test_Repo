@@ -2,8 +2,62 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 )
 
 func main() {
 	fmt.Println("Hello, playground")
+	rand.Seed(0)
+	
+
+	toot := new(Character)
+	
+	gender := rand.Intn(2)
+	if gender == 0 {
+		toot.gender = "male"
+	}
+	if gender == 1 {
+		toot.gender = "female"
+	}
+	
+	mod := roll()
+	ST := roll() + roll() + roll()
+	DX:= roll() + roll() + roll()
+	IQ:= roll() + roll() + roll()
+	HT:= roll() + roll() + roll()
+	if mod == 1{
+		ST = ST-2
+		DX = DX-2
+		IQ = IQ-2
+		HT = HT-2
+		toot.mod = "Weak"
+	} else if mod == 5{
+		toot.mod = "Tough"	
+	}
+	
+
+	toot.ST = ST
+	toot.DX = DX
+	toot.IQ = IQ
+	toot.HT = HT
+	
+	fmt.Println(toot)
+	
+	
+}
+
+func roll() int{
+	a := rand.Intn(6)+1
+	fmt.Println(a)
+	return a
+}
+
+type Character struct{
+	gender string
+	mod string
+	ST int
+	DX int
+	IQ int
+	HT int
+	skill int
 }
