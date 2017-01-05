@@ -3,5 +3,39 @@ package main
 import ("fmt")
 
 func main(){
-  fmt.Println("Hello, world!")
+ 	fmt.Println("Hello, world!")
+  	call()
+  	fmt.Println("ok")
+
+	listLoop()
+	testNeuron := Neuron{1,1}
+
+
+}
+
+func call(){
+  fmt.Println("called")
+}
+
+func listLoop(){
+	fmt.Println("loop begins")
+	
+	var a [4]int
+	a[0] = 1
+	i := a[0]
+	fmt.Println(i)
+	a[0] = 3
+	fmt.Println(a[0])
+	fmt.Println("end")
+	
+}
+
+type Neuron struct {
+	inp int
+	out int
+	
+}
+
+func (n Neuron) (){
+	
 }
