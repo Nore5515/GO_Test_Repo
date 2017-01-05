@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"strconv"
 )
@@ -26,6 +27,7 @@ func main() {
 	DX:= roll() + roll() + roll()
 	IQ:= roll() + roll() + roll()
 	HT:= roll() + roll() + roll()
+	
 	if mod == 1{
 		updateCharacter(toot,ST,DX,IQ,HT,-2)
 		toot.mod = "Weak"
@@ -33,11 +35,14 @@ func main() {
 		updateCharacter(toot,ST,DX,IQ,HT,+2)
 		toot.mod = "Tough"	
 	}else if mod == 6{
-		updateCharacter(toot,ST,DX,IQ,HT,+5)
+		updateCharacter(toot,ST,DX,IQ,HT,+2)
 		toot.mod = "Mini-Boss"
+		
 	}else{
+		updateCharacter(toot,ST,DX,IQ,HT,0)
 		toot.mod = "Avg"
 	}
+	
 	
 	
 	
@@ -62,6 +67,23 @@ func updateCharacter(toot *Character,ST int,DX int,IQ int,HT int,mod int){
 	toot.DX = stringDX + "(" + strconv.Itoa(DX) + ")"
 	toot.IQ = stringIQ + "(" + strconv.Itoa(IQ) + ")"
 	toot.HT = stringHT + "(" + strconv.Itoa(HT) + ")"
+}
+
+func findHighest(ST int, DX int, IQ int, HT int) string{
+	stdx := math.Max(float64(ST), float64(DX))
+	iqht := math.Max(float64(IQ), float64(HT))
+	winner := math.Max(float64(stdx), float64(iqht))
+	if (float64(ST) == winner){
+		return "ST"
+	}else if (float64(DX) == winner){
+		return "DX"
+	}else if (float64(IQ) == winner){
+		return "IQ"
+	}else{
+		return "HT"
+	}
+	
+	
 }
 
 type Character struct{
