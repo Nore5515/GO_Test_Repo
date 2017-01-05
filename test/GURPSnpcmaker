@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strconv"
 )
 
 func main() {
 	fmt.Println("Hello, playground")
-	rand.Seed(0)
+	rand.Seed(1)
 	
 
 	toot := new(Character)
@@ -26,20 +27,21 @@ func main() {
 	IQ:= roll() + roll() + roll()
 	HT:= roll() + roll() + roll()
 	if mod == 1{
-		ST = ST-2
-		DX = DX-2
-		IQ = IQ-2
-		HT = HT-2
+		updateCharacter(toot,ST,DX,IQ,HT,-2)
 		toot.mod = "Weak"
 	} else if mod == 5{
+		updateCharacter(toot,ST,DX,IQ,HT,+2)
 		toot.mod = "Tough"	
+	}else if mod == 6{
+		updateCharacter(toot,ST,DX,IQ,HT,+5)
+		toot.mod = "Mini-Boss"
+	}else{
+		toot.mod = "Avg"
 	}
 	
-
-	toot.ST = ST
-	toot.DX = DX
-	toot.IQ = IQ
-	toot.HT = HT
+	
+	
+//dont forget carry weight (ST^2)/5
 	
 	fmt.Println(toot)
 	
@@ -48,16 +50,26 @@ func main() {
 
 func roll() int{
 	a := rand.Intn(6)+1
-	fmt.Println(a)
 	return a
+}
+
+func updateCharacter(toot *Character,ST int,DX int,IQ int,HT int,mod int){
+	stringST := strconv.Itoa(ST+mod)
+	stringDX := strconv.Itoa(DX+mod)
+	stringIQ := strconv.Itoa(IQ+mod)
+	stringHT := strconv.Itoa(HT+mod)
+	toot.ST = stringST + "(" + strconv.Itoa(ST) + ")"
+	toot.DX = stringDX + "(" + strconv.Itoa(DX) + ")"
+	toot.IQ = stringIQ + "(" + strconv.Itoa(IQ) + ")"
+	toot.HT = stringHT + "(" + strconv.Itoa(HT) + ")"
 }
 
 type Character struct{
 	gender string
 	mod string
-	ST int
-	DX int
-	IQ int
-	HT int
+	ST string
+	DX string
+	IQ string
+	HT string
 	skill int
 }
